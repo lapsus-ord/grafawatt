@@ -1,0 +1,62 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:9.3.6
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_LOG_MODE=console
+      - GF_INFLUXDB_URL=http://influxdb:8086
+      - GF_INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+      - GF_INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+      - GF_INFLUXDB_ORG=${INFLUXDB_ORG}
+      - GF_INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - GF_INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/default/default.json
+    ports:
+      - 127.0.0.1:${GRAFANA_PORT}:3000
+    networks:
+      - internal-network
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - $PWD/grafana:/etc/grafana/provisioning
+  influxdb:
+    image: influxdb:2.6.1
+    ports:
+      - 127.0.0.1:${INFLUXDB_PORT}:8086
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
+    networks:
+      - internal-network
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+#  chronograf: # influxdb viewer
+#    image: chronograf:1.7.17
+#    environment:
+#      - INFLUXDB_URL=http://influxdb:8086
+#      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+#      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+#    ports:
+#      - ${CHRONOGRAF_PORT}:8888
+#    networks:
+#      - internal-network
+#    depends_on:
+#      - influxdb
+#    volumes:
+#      - chronograf-data:/var/lib/chronograf
+
+networks:
+  internal-network:
+
+volumes:
+  grafana-data:
+  influxdb-data:
+  influxdb-config:
+#  chronograf-data:
