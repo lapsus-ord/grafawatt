@@ -1,6 +1,6 @@
 # ⚡️ GrafaWatt
 
-> 📊️ See your energy consumption in Grafana
+> 📊️ See France (& soon your personal) energy consumption in Grafana
 
 ## Start Project
 
@@ -40,6 +40,7 @@ python3 main.py
 
 ## Resources
 
+- [ODRÉ & RTE personal documentation](./doc)
 - [Enedis - Open Data](https://data.enedis.fr/pages/accueil/)
 - [Enedis - Data Hub](https://datahub-enedis.fr/)
 - [Enedis - Realtime local data](https://datahub-enedis.fr/donnees-aval/)
