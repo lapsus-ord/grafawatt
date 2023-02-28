@@ -11,7 +11,7 @@ services:
       - GF_INFLUXDB_ORG=${INFLUXDB_ORG}
       - GF_INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
       - GF_INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/default/default.json
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/default/grafawatt_dashboard.json
     ports:
       - 127.0.0.1:${GRAFANA_PORT}:3000
     networks:
