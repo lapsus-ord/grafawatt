@@ -4,6 +4,7 @@ vscode/
 
 # Envs
 .env
+grafawatt.config
 
 # Python
 __pycache__/

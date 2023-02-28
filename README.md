@@ -9,6 +9,7 @@
 ```bash
 pip install influxdb-client python-dotenv requests
 
+cp grafawatt.config.dist grafawatt.config
 cp .env.dist .env
 ```
 
