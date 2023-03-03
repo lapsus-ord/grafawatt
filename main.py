@@ -20,7 +20,7 @@ def main():
 
     # 1. read config to get last fetch to ODRÉ
     config = open('grafawatt.config', 'r')
-    last_fetch_date = datetime.fromisoformat(config.read())
+    last_fetch_date = datetime.fromisoformat(config.read().splitlines()[0])
     config.close()
 
     # 2. first fetch
@@ -69,6 +69,7 @@ def main():
                     PointData(True, 'co2', record.co2),
                 ])
             last_fetch_date = record.date
+            number_of_insert += 1
         except ApiException:
             print('ERROR: when persisting to database')
 
